@@ -5,7 +5,7 @@ const defineUser = (sequelize) => { const User = sequelize.define("User", {
         primaryKey:true, 
         autoincrement:true
     },
-    nane:{
+    name:{
         type:DataTypes.STRING(100), 
         allowNull:false
     },
