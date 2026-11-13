@@ -3,7 +3,7 @@ const getMe = async (req, res, next)=>
 {
     try{
         const user = await
-        User.findBypk(req.user.id, {
+        User.findByPk(req.user.id, {
             attributes:{exclude:["password"]}
         });
         if (!user){
@@ -14,4 +14,23 @@ const getMe = async (req, res, next)=>
         next(error);
     }
 };
-module.exports = {getMe};
+const getAllUsers = async (req, res, next) => {
+    try{
+        const users = await User.findAll({attributes:{exclude:["password"]}});
+        return res.status(200).json({success:true, count:users.length, users});
+    }catch (error){
+        next (error);
+    }
+};
+const getUserById = async (req, res, next) => {
+    try{
+        const user = await User.findByPk(req.params.id, {attributes:{exclude:["password"]}});
+        if (!user){
+            return res.status(404).json({success:false, message:"User not found"});
+        }
+        return res.status(200).json ({success:true, user});
+    }catch (error){
+        next (error);
+    }
+};
+module.exports = {getMe, getAllUsers, getUserById};
