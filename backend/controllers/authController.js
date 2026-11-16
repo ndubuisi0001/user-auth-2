@@ -4,7 +4,7 @@ const jwt = require("jsonwebtoken");
 const register = async (req, res) => {
     console.log("Registration controller reached");
     console.log ("Request body:", req.body);
-const {name, email, password} = req.body;
+const {name, email, password} = req.body || {};
 if (
     typeof name !== "string"||
     typeof email !== "string"||
@@ -42,7 +42,7 @@ return res.status(201).json({success:true, message:"User registered successfully
     
 });
 };
-const login = async (req, res) => { const {email, password} = req.body;
+const login = async (req, res) => { const {email, password} = req.body || {};
 if(
     typeof email !== "string" ||
     typeof password !== "string" ||
